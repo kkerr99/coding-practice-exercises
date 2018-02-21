@@ -20,6 +20,9 @@ Loop through the string
   factorialSum += number
 Return factorialSum
 
+NOTE: This solution does not work because (I believe) the stored "big"
+integer is an approximation
+
 */
 
 var bigInt = require("big-integer");
