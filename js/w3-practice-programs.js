@@ -1679,3 +1679,96 @@ function maxPathSum(x, y, triArray) {
 }
 
 console.log(maxPathSum(0, 0, triangleArray2));
+
+/*
+https://projecteuler.net/problem=19
+
+#19--Counting Sundays
+
+You are given the following information, but you may prefer to do some research for yourself.
+
+1 Jan 1900 was a Monday.
+
+Thirty days has September,
+April, June and November.
+
+All the rest have thirty-one,
+  Saving February alone,
+  Which has twenty-eight, rain or shine.
+  And on leap years, twenty-nine.
+A leap year occurs on any year evenly divisible by 4, but not on a century
+  unless it is divisible by 400.
+
+How many Sundays fell on the first of the month during the twentieth century
+  (1 Jan 1901 to 31 Dec 2000)?
+
+  Strategy:
+
+  Weekly cycles are always the same
+
+  Due to months not having the same number of days, a day of the week (or a day of one
+  of the weeks of a month) does not have the same date per month
+
+  Given that 1 Jan 1900 is a Monday, create algorithm that generates # days per month
+  for every year
+
+  Loop through all of the months of the 20th century
+    Count # days from 1 Jan 1900 to 1st of month
+    Determine which day falls on 1st of month
+
+    Sum the count of Sundays that fall on 1st of month
+
+*/
+function daysinMonth(month, year) {
+  var days = 0;
+  switch(month) {
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+      days = 30;
+      break;
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+      days = 31;
+      break;
+    case 2:
+      // Leap year calculation
+      if ( (year % 4 == 0) && ((year % 100 == 0) && (year % 400 == 0)) ) {
+        days = 29;
+      }
+      else {
+        days = 28;
+      }
+  }
+  return days;
+}
+
+function whichDay(days) {
+
+}
+
+function sundayCounter() {
+  var days = 0;
+  var sundayCounter = 0;
+  var dayOfWeek = 0;
+  for (var year = 1900; year <= 2000; year++) {
+    for (var month = 1; month <= 12; month++) {
+      if (year >= 1901) {
+        dayOfWeek = whichDay(days);
+        if (dayOfWeek == 6) {
+          sundayCounter++;
+        }
+      }
+      days += daysinMonth(month, year);
+    }
+  }
+  return sundayCounter;
+}
+
+console.log(sundayCounter());
