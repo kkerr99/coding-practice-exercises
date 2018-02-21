@@ -1739,9 +1739,16 @@ function daysinMonth(month, year) {
       break;
     case 2:
       // Leap year calculation
-      if ( (year % 4 == 0) && ((year % 100 == 0) && (year % 400 == 0)) ) {
+      if (year % 4 == 0) {
         days = 29;
+        if (year % 100 == 0) {
+          days = 28;
+          if (year % 400 == 0) {
+            days = 29;
+          }
+        }
       }
+
       else {
         days = 28;
       }
@@ -1750,7 +1757,9 @@ function daysinMonth(month, year) {
 }
 
 function whichDay(days) {
-
+  var weekMultiple = Math.trunc(days / 7);
+  var dayOfWeek = days - (weekMultiple * 7);
+  return dayOfWeek;
 }
 
 function sundayCounter() {
@@ -1763,6 +1772,7 @@ function sundayCounter() {
         dayOfWeek = whichDay(days);
         if (dayOfWeek == 6) {
           sundayCounter++;
+          //console.log(month + " " + year + " " + "Sundays: " + sundayCounter);
         }
       }
       days += daysinMonth(month, year);
@@ -1772,3 +1782,4 @@ function sundayCounter() {
 }
 
 console.log(sundayCounter());
+// 171
